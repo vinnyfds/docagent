@@ -62,7 +62,7 @@ def generate_all(idea_json: str, overwrite: bool = False) -> Dict[str, Any]:
 @mcp.tool()
 def list_outputs() -> List[str]:
   """List generated outputs"""
-  outputs_dir = Path("outputs")
+  outputs_dir = Path("docs_agent/outputs")
   if not outputs_dir.exists():
     return []
   
@@ -77,7 +77,7 @@ def list_outputs() -> List[str]:
 def show_doc(path: str) -> str:
   """Show document content"""
   try:
-    doc_path = Path("outputs") / path
+    doc_path = Path("docs_agent/outputs") / path
     if doc_path.exists():
       return doc_path.read_text(encoding="utf-8")
     return f"Document not found: {path}"
@@ -89,7 +89,7 @@ def show_doc(path: str) -> str:
 def zip_outputs() -> str:
   """Create zip of all outputs"""
   try:
-    outputs_dir = Path("outputs")
+    outputs_dir = Path("docs_agent/outputs")
     zip_path = Path("docs_outputs.zip")
     
     with zipfile.ZipFile(zip_path, 'w') as zipf:
