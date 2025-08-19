@@ -1,0 +1,199 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docagent"
+version = "1.0.0"
+description = "AI-powered document generation suite with LangGraph workflows and Cursor IDE integration"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Vinicius Ferreira da Silva", email = "vinnyfds@gmail.com"}
+]
+maintainers = [
+    {name = "Vinicius Ferreira da Silva", email = "vinnyfds@gmail.com"}
+]
+keywords = [
+    "ai", "document-generation", "langraph", "mcp", "cursor-ide", 
+    "automation", "python", "fastmcp", "jinja2", "pydantic"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Code Generators",
+    "Topic :: Artificial Intelligence",
+    "Topic :: Text Processing :: Markup"
+]
+requires-python = ">=3.9"
+dependencies = [
+    "langgraph>=0.2.0",
+    "langchain>=0.3.0",
+    "pydantic>=2.0.0",
+    "jinja2>=3.1.0",
+    "mcp>=1.2.0",
+    "fastapi>=0.104.0",
+    "mangum>=0.17.0",
+    "pyyaml>=6.0",
+    "markdownify>=0.11.0",
+    "networkx>=3.0",
+    "boto3>=1.34.0",
+    "fastmcp>=2.11.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.1.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.0.0"
+]
+aws = [
+    "serverless-framework>=1.0.0",
+    "awscli>=1.32.0"
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocs-mermaid2-plugin>=1.0.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/vinnyfds/docagent"
+Repository = "https://github.com/vinnyfds/docagent.git"
+Documentation = "https://github.com/vinnyfds/docagent#readme"
+"Bug Tracker" = "https://github.com/vinnyfds/docagent/issues"
+"Discussions" = "https://github.com/vinnyfds/docagent/discussions"
+
+[project.scripts]
+docagent = "scripts.cli_generate:main"
+docagent-verify = "scripts.verify_mcp:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["docs_agent*", "orchestrator*", "scripts*"]
+
+[tool.setuptools.package-data]
+"docs_agent.prompts" = ["*.jinja"]
+"tests.fixtures" = ["*.json"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+indent-width = 2
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+    "ARG001", # unused-function-args
+    "ARG002", # unused-method-args
+    "ARG003", # unused-class-method-args
+    "ARG004", # unused-static-method-args
+    "ARG005", # unused-lambda-args
+    "D",   # pydocstyle
+    "PL",  # pylint
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "D100",  # missing docstring in public module
+    "D101",  # missing docstring in public class
+    "D102",  # missing docstring in public method
+    "D103",  # missing docstring in public function
+    "D104",  # missing docstring in public package
+    "D105",  # missing docstring in magic method
+    "PLR0913", # too many arguments to function call
+    "PLR0915", # too many statements
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "ARG", "PL"]
+"scripts/*" = ["D", "ARG"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["docs_agent", "orchestrator", "scripts"]
+omit = [
+    "tests/*",
+    "scripts/debug_*",
+    "scripts/simple_*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[[tool.mypy.overrides]]
+module = [
+    "langgraph.*",
+    "langchain.*",
+    "fastmcp.*",
+    "mcp.*",
+    "mangum.*",
+    "boto3.*",
+    "markdownify.*",
+    "networkx.*"
+]
+ignore_missing_imports = true
