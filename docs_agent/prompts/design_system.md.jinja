@@ -1,0 +1,182 @@
+# {{ idea.title }} - Design System
+
+**Version:** {{ idea.version }}  
+**Date:** {{ idea.created_at.strftime('%Y-%m-%d') }}  
+**Project:** {{ idea.context.project_name }}  
+**Domain:** {{ idea.context.domain }}
+
+## Design System Overview
+A comprehensive design system that ensures consistency, accessibility, and scalability across all {{ idea.context.project_name }} interfaces.
+
+## Brand Identity
+
+### Color Palette
+- **Primary Colors:**
+  - Primary: #3B82F6 (Blue)
+  - Primary Dark: #1D4ED8
+  - Primary Light: #93C5FD
+  
+- **Secondary Colors:**
+  - Secondary: #10B981 (Green)
+  - Secondary Dark: #059669
+  - Secondary Light: #6EE7B7
+  
+- **Neutral Colors:**
+  - White: #FFFFFF
+  - Gray 50: #F9FAFB
+  - Gray 100: #F3F4F6
+  - Gray 900: #111827
+  - Black: #000000
+
+- **Semantic Colors:**
+  - Success: #10B981
+  - Warning: #F59E0B
+  - Error: #EF4444
+  - Info: #3B82F6
+
+### Typography
+- **Font Family:** Inter, system-ui, sans-serif
+- **Font Weights:** 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold)
+- **Font Sizes:**
+  - xs: 0.75rem (12px)
+  - sm: 0.875rem (14px)
+  - base: 1rem (16px)
+  - lg: 1.125rem (18px)
+  - xl: 1.25rem (20px)
+  - 2xl: 1.5rem (24px)
+  - 3xl: 1.875rem (30px)
+
+## Component Library
+
+### Buttons
+```css
+.btn-primary {
+  @apply bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500;
+}
+
+.btn-secondary {
+  @apply bg-gray-200 text-gray-900 px-4 py-2 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-500;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500;
+}
+```
+
+### Form Elements
+```css
+.form-input {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-error {
+  @apply text-sm text-red-600 mt-1;
+}
+```
+
+### Cards
+```css
+.card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+}
+
+.card-header {
+  @apply border-b border-gray-200 pb-4 mb-4;
+}
+
+.card-title {
+  @apply text-lg font-semibold text-gray-900;
+}
+```
+
+## Layout System
+
+### Grid System
+- **Container:** Max-width 1280px, centered
+- **Columns:** 12-column grid system
+- **Gutters:** 24px between columns
+- **Breakpoints:**
+  - Mobile: < 640px
+  - Tablet: 640px - 1024px
+  - Desktop: > 1024px
+
+### Spacing Scale
+- **Base Unit:** 4px
+- **Scale:** 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128
+
+## Iconography
+- **Icon Library:** Heroicons (24x24px)
+- **Icon Style:** Outlined and filled variants
+- **Icon Colors:** Inherit text color or semantic colors
+- **Icon Sizes:** 16px, 20px, 24px, 32px
+
+## Animation & Transitions
+- **Duration:** 150ms (fast), 300ms (normal), 500ms (slow)
+- **Easing:** cubic-bezier(0.4, 0, 0.2, 1)
+- **Transitions:** Hover, focus, and state changes
+- **Micro-interactions:** Loading states, feedback animations
+
+## Accessibility Standards
+- **WCAG Compliance:** 2.1 AA level
+- **Color Contrast:** Minimum 4.5:1 ratio
+- **Focus Indicators:** Visible focus rings on all interactive elements
+- **Keyboard Navigation:** Full keyboard accessibility
+- **Screen Reader Support:** Proper ARIA labels and semantic HTML
+
+## Responsive Design
+- **Mobile First:** Design for mobile devices first
+- **Progressive Enhancement:** Add features for larger screens
+- **Touch Targets:** Minimum 44x44px for touch interfaces
+- **Content Priority:** Most important content visible on small screens
+
+## User Experience Guidelines
+{% for persona in idea.personas %}
+### {{ persona }} Experience
+- Optimize interface for {{ persona.lower() }} workflows
+- Prioritize frequently used features
+- Provide clear navigation paths
+- Ensure efficient task completion
+{% endfor %}
+
+## Implementation Guidelines
+- **CSS Framework:** Tailwind CSS with custom design tokens
+- **Component Architecture:** Atomic design methodology
+- **State Management:** Consistent state handling patterns
+- **Testing:** Visual regression testing for design consistency
+
+## Design Tokens
+```json
+{
+  "colors": {
+    "primary": {
+      "50": "#EFF6FF",
+      "500": "#3B82F6",
+      "900": "#1E3A8A"
+    }
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px"
+  },
+  "typography": {
+    "fontFamily": "Inter, system-ui, sans-serif",
+    "fontSizes": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem"
+    }
+  }
+}
+```
+
+## Change Log
+| Date | Version | Change | Author |
+|------|---------|---------|---------|
+| {{ idea.created_at.strftime('%Y-%m-%d') }} | {{ idea.version }} | Initial design system creation | System |

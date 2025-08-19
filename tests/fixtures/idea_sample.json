@@ -1,0 +1,23 @@
+{
+  "title": "E-Commerce Platform",
+  "description": "A modern e-commerce platform with inventory management, order processing, and customer analytics",
+  "context": {
+    "project_name": "ShopSmart Platform",
+    "domain": "E-Commerce",
+    "stakeholders": ["CEO", "CTO", "Product Manager", "Development Team"],
+    "constraints": ["Budget: $1M", "Timeline: 12 months", "Team: 8 developers"],
+    "assumptions": ["Cloud-native architecture", "Mobile-first design", "Scalable infrastructure"]
+  },
+  "personas": ["Customer", "Store Manager", "Admin User", "Analyst"],
+  "kpis": ["Conversion rate", "Average order value", "Customer lifetime value", "Inventory turnover"],
+  "modules": ["User Management", "Product Catalog", "Shopping Cart", "Order Management", "Inventory", "Analytics"],
+  "entities": ["User", "Product", "Order", "Cart", "Inventory", "Category", "Review"],
+  "apis": ["User API", "Product API", "Order API", "Cart API", "Inventory API", "Analytics API"],
+  "compliance": ["PCI DSS", "GDPR", "SOC 2"],
+  "slas": {
+    "Uptime": "99.9%",
+    "Response Time": "<200ms",
+    "Order Processing": "<5 minutes"
+  },
+  "version": "1.0.0"
+}

@@ -1,0 +1,70 @@
+# {{ idea.title }} - Entity Relationship Diagram
+
+**Version:** {{ idea.version }}  
+**Date:** {{ idea.created_at.strftime('%Y-%m-%d') }}  
+**Project:** {{ idea.context.project_name }}  
+**Domain:** {{ idea.context.domain }}
+
+## Entity Relationship Diagram
+
+```mermaid
+erDiagram
+{% for entity in idea.entities %}
+  {{ entity }} {
+    id UUID PK
+    created_at TIMESTAMP
+    updated_at TIMESTAMP
+    {% if entity.lower() in ['user', 'customer', 'account'] %}
+    email VARCHAR(255)
+    name VARCHAR(255)
+    status VARCHAR(50)
+    {% elif entity.lower() in ['order', 'transaction', 'payment'] %}
+    amount DECIMAL(10,2)
+    currency VARCHAR(3)
+    status VARCHAR(50)
+    {% elif entity.lower() in ['product', 'item', 'service'] %}
+    name VARCHAR(255)
+    description TEXT
+    price DECIMAL(10,2)
+    {% else %}
+    name VARCHAR(255)
+    description TEXT
+    {% endif %}
+  }
+{% endfor %}
+
+{% for entity in idea.entities %}
+  {% if entity.lower() in ['user', 'customer'] %}
+  {{ entity }} ||--o{ order : "places"
+  {% endif %}
+  {% if entity.lower() in ['order', 'transaction'] %}
+  {{ entity }} ||--|| payment : "has"
+  {% endif %}
+  {% if entity.lower() in ['product', 'item'] %}
+  order ||--o{ {{ entity }} : "contains"
+  {% endif %}
+{% endfor %}
+```
+
+## Entity Descriptions
+
+{% for entity in idea.entities %}
+### {{ entity }}
+- **Purpose:** Core business entity for {{ entity.lower() }} management
+- **Key Attributes:** ID, timestamps, business-specific fields
+- **Relationships:** Connected to related entities through foreign keys
+- **Constraints:** Unique identifiers, required fields, validation rules
+
+{% endfor %}
+
+## Database Schema Notes
+- All entities include audit fields (created_at, updated_at)
+- UUID primary keys for scalability and security
+- Proper indexing on frequently queried fields
+- Foreign key constraints for referential integrity
+- Soft delete support where applicable
+
+## Change Log
+| Date | Version | Change | Author |
+|------|---------|---------|---------|
+| {{ idea.created_at.strftime('%Y-%m-%d') }} | {{ idea.version }} | Initial diagram creation | System |

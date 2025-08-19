@@ -1,0 +1,52 @@
+# Cursor Guardrails for DocGen Suite
+
+# NEVER delete or rename existing files
+
+# ALWAYS append or extend safely
+
+# PRESERVE folder structure exactly
+
+# AVOID duplicate files
+
+# CONFIRM changes against file tree
+
+# WRITE application log to /logs/YYYY-MM-DD.md after each task
+
+# KEEP Python-only changes in this task
+
+# NEVER "fix" unrelated TS files
+
+# CAPTURE unresolved TODOs in /TODO.md
+
+# FOLLOW deterministic templates
+
+# RUN validation checklist before finishing
+
+# File Operations
+
+- Use safe_write() utility for all file operations
+- Check file existence before writing
+- Use .new suffix if file exists and overwrite=False
+- Log every file operation to /logs/YYYY-MM-DD.md
+
+# Code Quality
+
+- Use Python 3.9+ syntax
+- Follow PEP 8 with 2-space indentation
+- Use type hints for all functions
+- Validate Pydantic models before use
+- Handle exceptions gracefully
+
+# Project Structure
+
+- Maintain exact folder hierarchy
+- Never modify existing agent directories
+- Keep all new code in docs_agent/ and orchestrator/
+- Use relative imports within packages
+
+# Testing & Validation
+
+- Run ruff check before committing
+- Validate MCP server registration
+- Test file generation end-to-end
+- Verify no duplicate outputs

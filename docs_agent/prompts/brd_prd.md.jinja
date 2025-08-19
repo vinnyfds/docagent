@@ -1,0 +1,87 @@
+# {{ idea.title }} - Business Requirements Document / Product Requirements Document
+
+**Version:** {{ idea.version }}  
+**Date:** {{ idea.created_at.strftime('%Y-%m-%d') }}  
+**Project:** {{ idea.context.project_name }}  
+**Domain:** {{ idea.context.domain }}
+
+## Executive Summary
+{{ idea.description }}
+
+## Glossary
+- **BRD:** Business Requirements Document
+- **PRD:** Product Requirements Document
+- **KPI:** Key Performance Indicator
+- **SLA:** Service Level Agreement
+
+## Assumptions
+{% for assumption in idea.context.assumptions %}
+- {{ assumption }}
+{% endfor %}
+
+## Out-of-Scope
+- Legacy system integration
+- Third-party vendor selection
+- Hardware procurement
+- Legal compliance review
+
+## Business Context
+**Project Name:** {{ idea.context.project_name }}  
+**Domain:** {{ idea.context.domain }}
+
+**Stakeholders:**
+{% for stakeholder in idea.context.stakeholders %}
+- {{ stakeholder }}
+{% endfor %}
+
+**Constraints:**
+{% for constraint in idea.context.constraints %}
+- {{ constraint }}
+{% endfor %}
+
+## User Personas
+{% for persona in idea.personas %}
+- {{ persona }}
+{% endfor %}
+
+## Key Performance Indicators (KPIs)
+{% for kpi in idea.kpis %}
+- {{ kpi }}
+{% endfor %}
+
+## System Modules
+{% for module in idea.modules %}
+- {{ module }}
+{% endfor %}
+
+## Data Entities
+{% for entity in idea.entities %}
+- {{ entity }}
+{% endfor %}
+
+## API Endpoints
+{% for api in idea.apis %}
+- {{ api }}
+{% endfor %}
+
+## Compliance Requirements
+{% for compliance in idea.compliance %}
+- {{ compliance }}
+{% endfor %}
+
+## Service Level Agreements (SLAs)
+{% for service, sla in idea.slas.items() %}
+- **{{ service }}:** {{ sla }}
+{% endfor %}
+
+## Acceptance Criteria
+1. All specified modules are implemented
+2. KPIs are measurable and tracked
+3. SLAs are met consistently
+4. Compliance requirements are satisfied
+5. User personas can complete core workflows
+
+## Change Log
+| Date | Version | Change | Author |
+|------|---------|---------|---------|
+| {{ idea.created_at.strftime('%Y-%m-%d') }} | {{ idea.version }} | Initial document creation | System |

@@ -1,0 +1,133 @@
+# {{ idea.title }} - UI Wireframes
+
+**Version:** {{ idea.version }}  
+**Date:** {{ idea.created_at.strftime('%Y-%m-%d') }}  
+**Project:** {{ idea.context.project_name }}  
+**Domain:** {{ idea.context.domain }}
+
+## User Interface Wireframes
+
+### Main Navigation
+```mermaid
+graph TD
+  A[Header] --> B[Logo]
+  A --> C[Main Menu]
+  A --> D[User Profile]
+  A --> E[Notifications]
+  
+  C --> F[{{ idea.modules[0] if idea.modules else 'Dashboard' }}]
+  C --> G[{{ idea.modules[1] if idea.modules|length > 1 else 'Settings' }}]
+  C --> H[{{ idea.modules[2] if idea.modules|length > 2 else 'Help' }}]
+```
+
+### Dashboard Layout
+```mermaid
+graph TD
+  A[Dashboard] --> B[Sidebar Navigation]
+  A --> C[Main Content Area]
+  A --> D[Right Sidebar]
+  
+  B --> E[{{ idea.modules[0] if idea.modules else 'Overview' }}]
+  B --> F[{{ idea.modules[1] if idea.modules|length > 1 else 'Analytics' }}]
+  B --> G[{{ idea.modules[2] if idea.modules|length > 2 else 'Reports' }}]
+  
+  C --> H[Welcome Message]
+  C --> I[Quick Actions]
+  C --> J[Recent Activity]
+  
+  D --> K[Notifications]
+  D --> L[Quick Stats]
+```
+
+### User Management Interface
+```mermaid
+graph TD
+  A[User Management] --> B[User List]
+  A --> C[Add User Form]
+  A --> D[User Details]
+  
+  B --> E[Search Bar]
+  B --> F[Filter Options]
+  B --> G[User Table]
+  
+  C --> H[Name Field]
+  C --> I[Email Field]
+  C --> J[Role Selection]
+  C --> K[Submit Button]
+  
+  D --> L[User Info]
+  D --> M[Permissions]
+  D --> N[Activity Log]
+```
+
+### Data Management Interface
+{% for entity in idea.entities %}
+#### {{ entity }} Management
+```mermaid
+graph TD
+  A[{{ entity }} Management] --> B[{{ entity }} List]
+  A --> C[Add {{ entity }}]
+  A --> D[Edit {{ entity }}]
+  
+  B --> E[Search & Filter]
+  B --> F[{{ entity }} Table]
+  B --> G[Pagination]
+  
+  C --> H[{{ entity }} Form]
+  C --> I[Validation]
+  C --> J[Save Button]
+  
+  D --> K[Pre-filled Form]
+  D --> L[Update Button]
+  D --> M[Delete Option]
+```
+
+{% endfor %}
+
+### API Integration Interface
+{% for api in idea.apis %}
+#### {{ api }} Integration
+```mermaid
+graph TD
+  A[{{ api }} Integration] --> B[API Configuration]
+  A --> C[Test Interface]
+  A --> D[Monitoring]
+  
+  B --> E[Endpoint URL]
+  B --> F[Authentication]
+  B --> G[Headers]
+  
+  C --> H[Request Builder]
+  C --> I[Response Viewer]
+  C --> J[Error Handling]
+  
+  D --> K[Request Logs]
+  D --> L[Performance Metrics]
+  D --> M[Error Reports]
+```
+
+{% endfor %}
+
+## Design Principles
+- **Responsive Design:** Mobile-first approach with breakpoints
+- **Accessibility:** WCAG 2.1 AA compliance
+- **Consistency:** Unified design language across all interfaces
+- **Efficiency:** Minimize clicks and cognitive load
+- **Feedback:** Clear visual feedback for all user actions
+
+## User Experience Considerations
+{% for persona in idea.personas %}
+- **{{ persona }}:** Optimized workflow for {{ persona.lower() }} tasks
+{% endfor %}
+
+## Technology Stack
+- **Frontend Framework:** React with TypeScript
+- **Styling:** Tailwind CSS for consistent design
+- **State Management:** Redux Toolkit or Zustand
+- **Component Library:** Custom components with design system
+- **Testing:** Jest + React Testing Library
+
+## Change Log
+| Date | Version | Change | Author |
+|------|---------|---------|---------|
+| {{ idea.created_at.strftime('%Y-%m-%d') }} | {{ idea.version }} | Initial wireframes creation | System |
