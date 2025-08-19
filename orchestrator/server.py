@@ -59,7 +59,8 @@ def list_tools() -> List[str]:
   return [
     "ping",
     "list_tools",
-    "orchestrate_docgen"
+    "orchestrate_docgen",
+    "run_unified_workflow"
   ]
 
 
@@ -72,6 +73,30 @@ def orchestrate_docgen_tool(idea_json: str, profile: str = "full", overwrite: bo
     idea.output_dir = get_output_directory()
     result = orchestrate_docgen(idea, profile, overwrite)
     return {"success": True, "result": result}
+  except Exception as e:
+    return {"success": False, "error": str(e)}
+
+
+@mcp.tool()
+def run_unified_workflow(idea_json: str, docs: List[str] = None, profile: str = "full", overwrite: bool = False) -> Dict[str, Any]:
+  """Run the unified workflow with both docagent and orchestrator working together automatically"""
+  try:
+    idea = Idea.model_validate_json(idea_json)
+    idea.output_dir = get_output_directory()
+    
+    # Import the unified workflow function
+    from orchestrator.graph import run_unified_workflow as run_unified
+    result = run_unified(idea, docs, profile, overwrite)
+    
+    return {
+      "success": True,
+      "workflow_type": "unified_docagent_orchestrator",
+      "profile": profile,
+      "documents": result.get("documents", []),
+      "result": result,
+      "corrections_applied": result.get("corrections_applied", {}),
+      "status": result.get("status", "completed")
+    }
   except Exception as e:
     return {"success": False, "error": str(e)}
 
